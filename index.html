@@ -1,0 +1,535 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Athens Team Morale Event - Recap</title>
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>💙</text></svg>">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --primary-color: #2563EB;
+            --secondary-color: #1E40AF;
+            --accent-color: #3B82F6;
+            --dark-color: #000000;
+            --light-color: #E8E6E1;
+            --warm-bg: #F5F4F0;
+        }
+
+        body {
+            font-family: 'Aptos', 'Segoe UI', system-ui, -apple-system, sans-serif;
+            line-height: 1.6;
+            color: var(--dark-color);
+            background-color: var(--light-color);
+        }
+
+        /* Hero Section */
+        .hero {
+            color: white;
+            padding: 200px 20px 180px;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+            background: var(--dark-color);
+            min-height: 1200px;
+        }
+
+        .hero-video {
+            position: absolute;
+            top: 0;
+            left: 50%;
+            min-width: 100%;
+            min-height: 100%;
+            width: auto;
+            height: auto;
+            transform: translateX(-50%);
+            z-index: 0;
+            object-fit: cover;
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0, 0, 0, 0.5);
+            z-index: 1;
+        }
+
+        .hero-content {
+            max-width: 800px;
+            margin: 0 auto;
+            position: relative;
+            z-index: 2;
+        }
+
+        .hero h1 {
+            font-family: 'Playfair Display', Georgia, serif;
+            font-size: 3.5rem;
+            margin-bottom: 20px;
+            font-weight: 700;
+        }
+
+        .hero p {
+            font-size: 1.3rem;
+            line-height: 1.8;
+            opacity: 0.95;
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        .thanks-text {
+            font-size: 1rem;
+        }
+
+        /* Container */
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        /* Highlights Section */
+        .highlights {
+            padding: 80px 20px;
+            background-color: var(--warm-bg);
+        }
+
+        .section-title {
+            font-family: 'Playfair Display', Georgia, serif;
+            text-align: center;
+            font-size: 2.5rem;
+            color: var(--dark-color);
+            margin-bottom: 50px;
+            position: relative;
+            padding-bottom: 15px;
+        }
+
+        .section-title::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 80px;
+            height: 2px;
+            background: #000000;
+            border-radius: 2px;
+        }
+
+        .highlights-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 30px;
+            margin-top: 40px;
+        }
+
+        .highlight-card {
+            background: white;
+            padding: 35px 25px;
+            border-radius: 12px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.07);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .highlight-card:nth-child(2) {
+
+        }
+
+        .highlight-card:nth-child(3) {
+            border-top-color: var(--accent-color);
+            display: none;
+        }
+
+        .highlight-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 15px rgba(0,0,0,0.12);
+        }
+
+        .highlight-icon {
+            font-size: 2.5rem;
+            margin-bottom: 15px;
+        }
+
+        .highlight-card h3 {
+            font-family: 'Playfair Display', Georgia, serif;
+            font-size: 1.5rem;
+            color: var(--dark-color);
+            margin-bottom: 12px;
+        }
+
+        .highlight-card p {
+            color: #5a6c7d;
+            line-height: 1.7;
+        }
+
+        .highlight-link {
+            display: inline-block;
+            margin-top: 15px;
+            color: var(--primary-color);
+            text-decoration: none;
+            font-weight: 400;
+            font-size: 0.9rem;
+            transition: color 0.3s ease;
+            border-bottom: 2px solid var(--primary-color);
+            padding-bottom: 2px;
+        }
+
+        .highlight-link:hover {
+            color: var(--secondary-color);
+            border-bottom-color: var(--secondary-color);
+        }
+
+        /* Gallery Section */
+        .gallery-section {
+            padding: 80px 20px;
+            background-color: white;
+        }
+
+        .gallery-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 20px;
+            margin-top: 40px;
+        }
+
+        .gallery-item {
+            position: relative;
+            overflow: hidden;
+            border-radius: 8px;
+            cursor: pointer;
+            aspect-ratio: 1;
+            background: linear-gradient(135deg, #F5F4F0, #E8E6E1);
+        }
+
+        .gallery-item img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.4s ease;
+        }
+
+        .gallery-item:hover img {
+            transform: scale(1.1);
+        }
+
+        .gallery-item::after {
+            content: '⊕';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            font-size: 3rem;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+            pointer-events: none;
+        }
+
+        .gallery-item:hover::after {
+            opacity: 0.9;
+        }
+
+        /* Lightbox */
+        .lightbox {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.95);
+            z-index: 1000;
+            justify-content: center;
+            align-items: center;
+            animation: fadeIn 0.3s ease;
+        }
+
+        .lightbox.active {
+            display: flex;
+        }
+
+        .lightbox-content {
+            max-width: 90%;
+            max-height: 90%;
+            position: relative;
+        }
+
+        .lightbox-content img {
+            max-width: 100%;
+            max-height: 90vh;
+            border-radius: 8px;
+            box-shadow: 0 10px 50px rgba(0,0,0,0.5);
+        }
+
+        .lightbox-close {
+            position: absolute;
+            top: -40px;
+            right: 0;
+            background: white;
+            color: black;
+            border: none;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            font-size: 1.5rem;
+            cursor: pointer;
+            transition: opacity 0.3s ease;
+        }
+
+        .lightbox-close:hover {
+            opacity: 0.8;
+        }
+
+        .lightbox-nav {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            background: white;
+            color: black;
+            border: none;
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            font-size: 1.5rem;
+            cursor: pointer;
+            transition: opacity 0.3s ease;
+        }
+
+        .lightbox-nav:hover {
+            opacity: 0.8;
+        }
+
+        .lightbox-prev {
+            left: 20px;
+        }
+
+        .lightbox-next {
+            right: 20px;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .hero h1 {
+                font-size: 2.5rem;
+            }
+
+            .hero p {
+                font-size: 1.1rem;
+            }
+
+            .section-title {
+                font-size: 2rem;
+            }
+
+            .highlights-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .gallery-grid {
+                grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+                gap: 15px;
+            }
+
+            .lightbox-nav {
+                width: 40px;
+                height: 40px;
+                font-size: 1.2rem;
+            }
+        }
+
+        /* Footer */
+        footer {
+            background-color: var(--dark-color);
+            color: white;
+            text-align: center;
+            padding: 30px 20px;
+            margin-top: 0;
+        }
+
+        footer p {
+            opacity: 0.8;
+        }
+    </style>
+</head>
+<body>
+    <!-- Hero Section -->
+    <section class="hero">
+        <video class="hero-video" autoplay muted loop playsinline>
+            <source src="Video/AthensVideo2 1.mp4" type="video/mp4">
+            Your browser does not support the video tag.
+        </video>
+        <div class="hero-content">
+            <h1>Athens Team Morale Event</h1>
+            <p>An unforgettable day of connection, collaboration, and celebration. Our Athens team came together to strengthen bonds, share laughs, and create lasting memories with a visit to EMΣT – The National Museum of Contemporary Art Athens, followed by a wonderful dinner together—moments that nurture our team spirit, fuel our passion, and inspire our continued success.<br><br><span class="thanks-text">Special thanks to Mathias for supporting the team dinner and helping make this morale event possible. 💙</span></p>
+        </div>
+    </section>
+
+    <!-- Highlights Section -->
+    <section class="highlights">
+        <div class="container">
+            <h2 class="section-title">Event Highlights</h2>
+            <div class="highlights-grid">
+                <div class="highlight-card">
+                    <div class="highlight-icon">✦</div>
+                    <h3>Why Look at Animals? — Exhibition Visit</h3>
+                    <p>A Case for the Rights of Non-Human Lives centres on animal rights and animal well-being, highlighting the urgent need to recognise and defend the lives of non-human animals in an anthropocentric world that exploits, oppresses and brutalises them.</p>
+                    <a href="https://www.emst.gr/en/exhibitions-en/why-look-at-animals" target="_blank" class="highlight-link">Read more</a>
+                </div>
+                <div class="highlight-card">
+                    <div class="highlight-icon">❖</div>
+                    <h3>Dinner in the Heart of Historic Athens</h3>
+                    <p>After exploring the city's cultural highlights, the team gathered for dinner in the historic center of Athens—sharing great food, lively conversation, and a relaxed atmosphere that brought the day to a perfect close.</p>
+                    <a href="https://en.wikipedia.org/wiki/Athens" target="_blank" class="highlight-link">Read more</a>
+                </div>
+                <div class="highlight-card">
+                    <div class="highlight-icon">🎉</div>
+                    <h3>Celebration & Recognition</h3>
+                    <p>Recognized outstanding achievements and milestones. Celebrated our wins, shared our stories, and reinforced the values that make our Athens team extraordinary.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Gallery Section -->
+    <section class="gallery-section">
+        <div class="container">
+            <h2 class="section-title">Photo Gallery</h2>
+            <div class="gallery-grid">
+                <div class="gallery-item" onclick="openLightbox(0)">
+                    <img src="images/Photo1.jpeg" alt="Exhibition entrance - Why Look at Animals? at EMΣT museum">
+                </div>
+                <div class="gallery-item" onclick="openLightbox(1)">
+                    <img src="images/Photo2.jpeg" alt="Stunning rooftop view with the Acropolis in the background">
+                </div>
+                <div class="gallery-item" onclick="openLightbox(2)">
+                    <img src="images/Photo3.jpeg" alt="Team members exploring exhibition materials together">
+                </div>
+                <div class="gallery-item" onclick="openLightbox(3)">
+                    <img src="images/Photo4.jpeg" alt="Expressive artwork featuring birds and primates">
+                </div>
+                <div class="gallery-item" onclick="openLightbox(4)">
+                    <img src="images/Photo5.jpeg" alt="Contemporary gallery space with vibrant abstract artwork">
+                </div>
+                <div class="gallery-item" onclick="openLightbox(5)">
+                    <img src="images/Photo6.jpeg" alt="Striking sculpture of a figure riding an animal">
+                </div>
+                <div class="gallery-item" onclick="openLightbox(6)">
+                    <img src="images/Photo7.jpeg" alt="Creative installation with diverse animal sculptures and silhouettes">
+                </div>
+                <div class="gallery-item" onclick="openLightbox(7)">
+                    <img src="images/Photo8.jpeg" alt="Vibrant mural with organic patterns and vivid colors">
+                </div>
+                <div class="gallery-item" onclick="openLightbox(8)">
+                    <img src="images/Photo9.jpeg" alt="Textile artwork depicting shared dining moment">
+                </div>
+                <div class="gallery-item" onclick="openLightbox(9)">
+                    <img src="images/Photo10.jpeg" alt="Thought-provoking artwork: The World is Not a Human Project">
+                </div>
+                <div class="gallery-item" onclick="openLightbox(10)">
+                    <img src="images/Photo11.jpeg" alt="Wall of intricate bird sketches and illustrations">
+                </div>
+                <div class="gallery-item" onclick="openLightbox(11)">
+                    <img src="images/Photo12.jpeg" alt="Team celebrating with drinks and delicious food">
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Lightbox -->
+    <div class="lightbox" id="lightbox" onclick="closeLightbox(event)">
+        <div class="lightbox-content">
+            <button class="lightbox-close" onclick="closeLightbox(event)">&times;</button>
+            <button class="lightbox-nav lightbox-prev" onclick="changeImage(-1, event)">&#10094;</button>
+            <img id="lightbox-img" src="" alt="Gallery image">
+            <button class="lightbox-nav lightbox-next" onclick="changeImage(1, event)">&#10095;</button>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <p>&copy; 2026 Athens Team. Together we achieve more.</p>
+        </div>
+    </footer>
+
+    <script>
+        // Adjust video playback speed
+        const heroVideo = document.querySelector('.hero-video');
+        if (heroVideo) {
+            heroVideo.playbackRate = 0.75; // Play at 75% speed (slightly slower)
+        }
+
+        let currentImageIndex = 0;
+        const images = document.querySelectorAll('.gallery-item img');
+
+        function openLightbox(index) {
+            currentImageIndex = index;
+            const lightbox = document.getElementById('lightbox');
+            const lightboxImg = document.getElementById('lightbox-img');
+
+            lightboxImg.src = images[index].src;
+            lightboxImg.alt = images[index].alt;
+            lightbox.classList.add('active');
+
+            // Prevent body scroll when lightbox is open
+            document.body.style.overflow = 'hidden';
+        }
+
+        function closeLightbox(event) {
+            if (event.target.id === 'lightbox' || event.target.classList.contains('lightbox-close')) {
+                const lightbox = document.getElementById('lightbox');
+                lightbox.classList.remove('active');
+                document.body.style.overflow = 'auto';
+            }
+        }
+
+        function changeImage(direction, event) {
+            event.stopPropagation();
+            currentImageIndex += direction;
+
+            // Loop around if we go past the end or beginning
+            if (currentImageIndex >= images.length) {
+                currentImageIndex = 0;
+            } else if (currentImageIndex < 0) {
+                currentImageIndex = images.length - 1;
+            }
+
+            const lightboxImg = document.getElementById('lightbox-img');
+            lightboxImg.src = images[currentImageIndex].src;
+            lightboxImg.alt = images[currentImageIndex].alt;
+        }
+
+        // Close lightbox with Escape key
+        document.addEventListener('keydown', function(event) {
+            if (event.key === 'Escape') {
+                const lightbox = document.getElementById('lightbox');
+                lightbox.classList.remove('active');
+                document.body.style.overflow = 'auto';
+            } else if (event.key === 'ArrowLeft') {
+                if (document.getElementById('lightbox').classList.contains('active')) {
+                    changeImage(-1, event);
+                }
+            } else if (event.key === 'ArrowRight') {
+                if (document.getElementById('lightbox').classList.contains('active')) {
+                    changeImage(1, event);
+                }
+            }
+        });
+    </script>
+</body>
+</html>
